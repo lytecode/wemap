@@ -1,6 +1,7 @@
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../users/user.model";
+import config from "../config";
 
 class AuthenticationService {
   async signInUser(loginDTO: {
@@ -27,8 +28,8 @@ class AuthenticationService {
       email: user.email,
     };
 
-    const token = jwt.sign(payload, `${process.env.JWT_SECRET}`, {
-      expiresIn: process.env.TOKEN_EXPIRES_IN,
+    const token = jwt.sign(payload, `${config.JWT_SECRET}`, {
+      expiresIn: config.TOKEN_EXPIRES_IN,
     });
 
     return { token };

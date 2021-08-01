@@ -1,12 +1,13 @@
 import axios from "axios";
 import { IAddress } from "../dto/address.dto";
+import config from "../config";
 
 class AddressService {
   async validateAddress(addressDTO: IAddress) {
     const { street, streetNumber, town, postalCode, country } = addressDTO;
 
     const { data } = await axios.get(
-      `${process.env.NOMINATIM_BASE_API}/search.php?`,
+      `${config.NOMINATIM_BASE_API}/search.php?`,
       {
         params: {
           street: `${streetNumber}, ${street}`,
@@ -25,7 +26,7 @@ class AddressService {
     const { street, streetNumber, town, postalCode, country } = addressDTO;
 
     const { data } = await axios.get(
-      `${process.env.NOMINATIM_BASE_API}/search.php?`,
+      `${config.NOMINATIM_BASE_API}/search.php?`,
       {
         params: {
           street: `${streetNumber}, ${street}`,
@@ -43,17 +44,14 @@ class AddressService {
 
     const { lat, lon } = data[0];
 
-    const { data: weather } = await axios.get(
-      `${process.env.TIMER7_BASE_API}?`,
-      {
-        params: {
-          lon,
-          lat,
-          product: "civillight",
-          output: "json",
-        },
-      }
-    );
+    const { data: weather } = await axios.get(`${config.TIMER7_BASE_API}?`, {
+      params: {
+        lon,
+        lat,
+        product: "civillight",
+        output: "json",
+      },
+    });
 
     return weather;
   }

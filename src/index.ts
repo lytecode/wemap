@@ -1,17 +1,16 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import { db } from "./database/connect";
 import routes from "./routes";
+import config from "./config";
 
 //Start database
 db().catch((err) =>
   console.log("Ooops! Something went wrong with db connection")
 );
 
-dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = config.PORT;
 
 app.use(cors());
 app.use(express.json());

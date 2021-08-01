@@ -1,9 +1,7 @@
 import { connect } from "mongoose";
-import dotenv from "dotenv";
+import config from "../config";
 
-dotenv.config();
-
-const url = process.env.MONGO_URL || "localhost";
+const url = config.MONGO_URL || "localhost";
 export async function db(): Promise<void> {
   // Connect to MongoDB
   await connect(`mongodb://${url}:27017/wefox`, {
