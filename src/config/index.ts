@@ -8,6 +8,8 @@ const config = {
   TOKEN_EXPIRES_IN: process.env.TOKEN_EXPIRES_IN,
   NOMINATIM_BASE_API: process.env.NOMINATIM_BASE_API,
   TIMER7_BASE_API: process.env.TIMER7_BASE_API,
+  REDIS_PORT: process.env.REDIS_PORT || 6379,
+  REDIS_HOST: process.env.REDIS_HOST,
 };
 
 export default config;
