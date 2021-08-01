@@ -1,6 +1,5 @@
 import { Router, Request, Response } from "express";
 import UserController from "../users/user.controller";
-import AuthController from "../auth/auth.controller";
 import AddressController from "../address/address.controller";
 import auth from "../middleware/verifyToken";
 
@@ -31,6 +30,20 @@ const app = Router();
  *         name: John
  *         email: john@doe.com
  *         password: aaaaaa
+ *     Login:
+ *        type: object
+ *        properties:
+ *          email:
+ *            type: string
+ *          password:
+ *            type: string
+ *     LoginSuccess:
+ *        type: object
+ *        properties:
+ *          msg:
+ *            type: string
+ *          token:
+ *            type: string
  *     UserSuccess:
  *        type: object
  *        properties:
@@ -94,7 +107,7 @@ const app = Router();
  */
 
 /**
- * @openapi
+ * @swagger
  * /api/v1:
  *   get:
  *     tags: [BASE_API]
@@ -109,16 +122,25 @@ app.get("/", (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /api/v1/auth/login:
+ * /api/v1/users/login:
  *  post:
- *    tags:
- *    - "auth"
- *    description: User login
+ *    summary: Login a user
+ *    tags: [Users]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Login'
  *    responses:
  *      '200':
- *        description: A successful response
+ *         description: Successfully signed in
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginSuccess'
  */
-app.post("/auth/login", AuthController.userLogin);
+app.post("/users/login", UserController.userLogin);
 
 /**
  * @swagger
