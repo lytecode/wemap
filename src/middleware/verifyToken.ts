@@ -3,19 +3,17 @@ import jwt from "jsonwebtoken";
 import config from "../config";
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization || req.headers["x-access-token"];
+  const bearerHeader = req.headers.authorization;
 
-  if (!token) {
+  if (!bearerHeader) {
     return res.status(401).json({
       auth: false,
       message: "No token provided",
     });
   }
+  const token = bearerHeader.split(" ")[1];
   try {
-    const decoded = await jwt.verify(
-      token as string,
-      config.JWT_SECRET as string
-    );
+    const decoded = await jwt.verify(token, config.JWT_SECRET as string);
     if (!decoded) {
       return res.status(401).json({
         auth: false,
