@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { db } from "./database/connect";
 import routes from "./routes";
@@ -42,7 +42,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/api/v1", routes);
 
 // Setup a default catch-all route
-app.use("*", (req, res, next) => {
+app.use("*", (req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
     error: "Invalid route!",
   });
