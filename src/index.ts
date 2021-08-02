@@ -6,8 +6,9 @@ import config from "./config";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 
+const env = `${process.env.NODE_ENV}`;
 //Start database
-db().catch((err) =>
+db(env).catch((err) =>
   console.log("Ooops! Something went wrong with db connection")
 );
 
