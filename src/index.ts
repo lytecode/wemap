@@ -50,3 +50,5 @@ app.use("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.listen(PORT, () => console.log(`App started on port ${PORT}`));
+
+export default app;
